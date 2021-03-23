@@ -113,7 +113,9 @@ public class BattleShipGame {
                             return;
                         //printBoard();
                     }
-                    System.out.println("Co-ordinates out of Range. Please enter any value from 0 to 9");
+                    else{
+                        System.out.println("Co-ordinates out of Range. Please enter any value from 0 to 9");
+                    }
                     break;
                 case 2:
                     System.out.println("PRINT BOARD :");

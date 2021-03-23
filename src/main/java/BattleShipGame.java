@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 import static java.lang.Math.random;
 
 public class BattleShipGame {
@@ -55,7 +57,7 @@ public class BattleShipGame {
         }*/
     }
 
-    public String shootShip(int xCoordinate, int yCoordinate) {
+    public static String shootShip(int xCoordinate, int yCoordinate) {
         if(hit(xCoordinate,yCoordinate))
         {
             return "HIT";
@@ -63,20 +65,26 @@ public class BattleShipGame {
         return "MISS";
     }
 
-    private boolean hit(int xCoordinate, int yCoordinate) {
+    private static boolean hit(int xCoordinate, int yCoordinate) {
         if(board[xCoordinate][yCoordinate] == "1")
         {
             board[xCoordinate][yCoordinate] = "X";
             playerBoard[xCoordinate][yCoordinate] = "X";
             return true;
         }
+        playerBoard[xCoordinate][yCoordinate] = "*";
         return false;
     }
 
     public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
         setBoard();
         printBoard();
         setShip();
-
+        int x = input.nextInt();
+        int y = input.nextInt();
+        String result = shootShip(x, y);
+        System.out.println(result);
+        printBoard();
     }
 }

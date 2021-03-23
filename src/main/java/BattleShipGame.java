@@ -32,6 +32,29 @@ public class BattleShipGame {
         System.out.println();
     }
 
+    public static void setShip()
+    {
+        for (int i = 0; i < noOfShips;) {
+            int x = (int) (random()*10);
+            int y = (int) (random()*10);
+
+            if((x >= 0 && x < noOfRows) && (y >= 0 && y < noOfCols) && (board[x][y] == "0"))
+            {
+                board[x][y] = "1";
+                System.out.println("Ship"+(i+1)+" deployed");
+                i++;
+            }
+        }
+
+       /*for (int i = 0; i < board.length; i++) {
+            System.out.print("| ");
+            for (int j = 0; j < board[i].length; j++) {
+                System.out.print(board[i][j]+" ");
+            }
+            System.out.println();
+        }*/
+    }
+
     public String shootShip(int xCoordinate, int yCoordinate) {
         if(hit(xCoordinate,yCoordinate))
         {
@@ -53,7 +76,7 @@ public class BattleShipGame {
     public static void main(String[] args) {
         setBoard();
         printBoard();
-       // setShip();
+        setShip();
 
     }
 }

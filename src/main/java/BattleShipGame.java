@@ -17,6 +17,21 @@ public class BattleShipGame {
         }
     }
 
+    public static void printBoard()
+    {
+        System.out.print("   0 1 2 3 4 5 6 7 8 9 ");
+        System.out.println();
+        for (int i = 0; i < playerBoard.length; i++) {
+            System.out.print(i+"| ");
+            for (int j = 0; j < playerBoard[i].length; j++) {
+                System.out.print(playerBoard[i][j]+" ");
+            }
+            System.out.print("|");
+            System.out.println();
+        }
+        System.out.println();
+    }
+
     public String shootShip(int xCoordinate, int yCoordinate) {
         if(hit(xCoordinate,yCoordinate))
         {
@@ -37,7 +52,7 @@ public class BattleShipGame {
 
     public static void main(String[] args) {
         setBoard();
-        //printBoard();
+        printBoard();
        // setShip();
 
     }

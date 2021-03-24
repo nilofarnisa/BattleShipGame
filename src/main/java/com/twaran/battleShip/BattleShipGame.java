@@ -1,3 +1,5 @@
+package com.twaran.battleShip;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -10,10 +12,10 @@ public class BattleShipGame {
     public static int noOfShips = 5;
     public static String[][] board = new String[noOfRows][noOfCols];
     static ArrayList<Integer> shipSize = new ArrayList<>(Arrays.asList(2, 3, 3, 4, 5));
-    public static Integer[][] shipCoordinates = new Integer[noOfShips][4];
+    static Integer[][] shipCoordinates = new Integer[noOfShips][4];
     public static ArrayList<Integer> shipRemaining = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4));
 
-    public static void setBoard() {
+    public void setBoard() {
         for (int row = 0; row < noOfRows; row++) {
             for (int column = 0; column < noOfCols; column++) {
                 board[row][column] = "0";
@@ -21,7 +23,7 @@ public class BattleShipGame {
         }
     }
 
-    public static void printBoard() {
+    public void printBoard() {
         System.out.print("   0 1 2 3 4 5 6 7 8 9 ");
         System.out.println();
         for (int row = 0; row < board.length; row++) {
@@ -39,7 +41,7 @@ public class BattleShipGame {
         System.out.println();
     }
 
-    public static void setShip() {
+    private void setShip() {
         for (int ship = 0; ship < noOfShips; ) {
             int xCoordinate = (int) (random() * 10);
             int yCoordinate = (int) (random() * 10);
@@ -104,11 +106,11 @@ public class BattleShipGame {
         }*/
     }
 
-    public static String shootShip(int xCoordinate, int yCoordinate) {
+    public String shootShip(int xCoordinate, int yCoordinate) {
         if (board[xCoordinate][yCoordinate].equals("X") || board[xCoordinate][yCoordinate].equals("*")) {
             return "Shot Already , Choose other co-ordinates";
         }
-        if (hit(xCoordinate, yCoordinate)) {
+        if (isHit(xCoordinate, yCoordinate)) {
             if (isSink()) {
                 System.out.println("Ship Sunk");
                 noOfShips--;
@@ -121,7 +123,7 @@ public class BattleShipGame {
         return "MISS";
     }
 
-    private static boolean isSink() {
+    private boolean isSink() {
         int shipCoordinatesHit;
         int ship = 0;
         while (ship < shipRemaining.size()) {
@@ -150,7 +152,7 @@ public class BattleShipGame {
         return false;
     }
 
-    private static boolean hit(int xCoordinate, int yCoordinate) {
+    public boolean isHit(int xCoordinate, int yCoordinate) {
         if (board[xCoordinate][yCoordinate].equals("1")) {
             board[xCoordinate][yCoordinate] = "X";
             return true;
@@ -160,42 +162,39 @@ public class BattleShipGame {
     }
 
     public static void main(String[] args) {
+        BattleShipGame battleShipGame = new BattleShipGame();
         Scanner input = new Scanner(System.in);
         System.out.println("Setting the board....");
-        setBoard();
+        battleShipGame.setBoard();
         System.out.println("Board Set");
-        printBoard();
+        battleShipGame.printBoard();
         System.out.println("Setting the Ships in positions");
-        setShip();
+        battleShipGame.setShip();
         int choice;
         do {
             System.out.println("Choose your option : 1.SHOOT 2.PRINT BOARD 3.QUIT GAME");
             choice = input.nextInt();
             switch (choice) {
-                case 1:
+                case 1 -> {
                     System.out.println("SHOOT");
                     System.out.println("Enter X and Y co-ordinates: ");
                     int x = input.nextInt();
                     int y = input.nextInt();
                     if ((x >= 0 && x <= 9) && (y >= 0 && y <= 9)) {
-                        String result = shootShip(x, y);
+                        String result = battleShipGame.shootShip(x, y);
                         System.out.println(result);
                         if (result.equals("You Won :)"))
                             return;
                     } else {
                         System.out.println("Co-ordinates out of Range. Please enter any value from 0 to 9");
                     }
-                    break;
-                case 2:
+                }
+                case 2 -> {
                     System.out.println("PRINT BOARD :");
-                    printBoard();
-                    break;
-                case 3:
-                    System.out.println("You Lost :(");
-                    break;
-                default:
-                    System.out.println("Wrong choice . Choose correct option");
-                    break;
+                    battleShipGame.printBoard();
+                }
+                case 3 -> System.out.println("You Lost :(");
+                default -> System.out.println("Wrong choice . Choose correct option");
             }
         } while (choice != 3);
     }

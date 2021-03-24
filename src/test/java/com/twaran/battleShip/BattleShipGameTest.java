@@ -12,14 +12,14 @@ public class BattleShipGameTest {
 
         String shootResult = mockBattleShipGame.shootShip(0, 0);
 
-        assertEquals("shootShip function called",shootResult);
+        assertEquals("shootShip function called", shootResult);
     }
 
     @Test
     void shouldReturnTrueIfTheIsHitFunctionIsCalled() {
         MockBattleShipGame mockBattleShipGame = new MockBattleShipGame();
 
-        boolean shootResult = mockBattleShipGame.isHit(0,0);
+        boolean shootResult = mockBattleShipGame.isHit(0, 0);
 
         assertTrue(shootResult);
     }
@@ -33,17 +33,17 @@ public class BattleShipGameTest {
         assertTrue(mockBattleShipGame.isPrintCalled);
     }
 
-    static class MockBattleShipGame extends BattleShipGame{
+    static class MockBattleShipGame extends BattleShipGame {
 
         boolean isPrintCalled = false;
+
         @Override
-        public String shootShip(int x,int y) {
+        public String shootShip(int x, int y) {
             return "shootShip function called";
         }
 
         @Override
-        public  boolean isHit(int x,int y)
-        {
+        public boolean isHit(int x, int y) {
             return true;
         }
 

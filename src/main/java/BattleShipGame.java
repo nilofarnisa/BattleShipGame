@@ -9,10 +9,9 @@ public class BattleShipGame {
     public static int noOfCols = 10;
     public static int noOfShips = 5;
     public static String[][] board = new String[noOfRows][noOfCols];
-    static ArrayList<Integer> ship_size = new ArrayList<>(Arrays.asList(2,3,3,4,5));
+    static ArrayList<Integer> shipSize = new ArrayList<>(Arrays.asList(2,3,3,4,5));
     public static Integer[][] shipCoordinates = new Integer[noOfShips][4];
-    public static ArrayList<Integer> shipSunk = new ArrayList<>(Arrays.asList(0,1,2,3,4));
-    private static int noOfHits = 0;
+    public static ArrayList<Integer> shipRemaining = new ArrayList<>(Arrays.asList(0,1,2,3,4));
 
     public static void setBoard()
     {
@@ -30,7 +29,7 @@ public class BattleShipGame {
         for (int i = 0; i < board.length; i++) {
             System.out.print(i+"| ");
             for (int j = 0; j < board[i].length; j++) {
-                if(board[i][j] == "0" || board[i][j] == "1")
+                if(board[i][j].equals("0") || board[i][j].equals("1"))
                 {
                     System.out.print("- ");
                 }
@@ -47,64 +46,64 @@ public class BattleShipGame {
 
     public static void setShip()
     {
-        for (int i = 0; i < noOfShips;) {
-            int x = (int) (random()*10);
-            int y = (int) (random()*10);
+        for (int ship = 0; ship < noOfShips;) {
+            int xCoOrdinate = (int) (random()*10);
+            int yCoOrdinate = (int) (random()*10);
             int direction = (int) (random()*2);
-            int shipPointsFilled = 0;
+            int shipPointsFilled;
             boolean isShipPlaced = false;
 
-            if((x >= 0 && x < noOfRows) && (y >= 0 && y < noOfCols) && (board[x][y] == "0"))
+            if((xCoOrdinate >= 0 && xCoOrdinate < noOfRows) && (yCoOrdinate >= 0 && yCoOrdinate < noOfCols) && (board[xCoOrdinate][yCoOrdinate].equals("0")))
             {
                 shipPointsFilled = 0;
                 if(direction == 0) {
-                    for (int j = x; j < x + ship_size.get(i) && j < noOfRows; j++) {
-                        if (board[j][y] != "0")
+                    for (int j = xCoOrdinate; j < xCoOrdinate + shipSize.get(ship) && j < noOfRows; j++) {
+                        if (!board[j][yCoOrdinate].equals("0"))
                             break;
                         else
                             shipPointsFilled++;
                     }
-                    if(shipPointsFilled == ship_size.get(i))
+                    if(shipPointsFilled == shipSize.get(ship))
                     {
                         isShipPlaced = true;
-                        for (int j = x; j < x + ship_size.get(i); j++)
-                            board[j][y] = "1";
-                        shipCoordinates[i][0] = x;
-                        shipCoordinates[i][1] = y;
-                        shipCoordinates[i][2] = x + ship_size.get(i) - 1;
-                        shipCoordinates[i][3] = y;
+                        for (int j = xCoOrdinate; j < xCoOrdinate + shipSize.get(ship); j++)
+                            board[j][yCoOrdinate] = "1";
+                        shipCoordinates[ship][0] = xCoOrdinate;
+                        shipCoordinates[ship][1] = yCoOrdinate;
+                        shipCoordinates[ship][2] = xCoOrdinate + shipSize.get(ship) - 1;
+                        shipCoordinates[ship][3] = yCoOrdinate;
                     }
                 }
                 else
                 {
-                    for (int j = y; j < y + ship_size.get(i) && j < noOfCols; j++) {
-                        if (board[x][j] != "0")
+                    for (int j = yCoOrdinate; j < yCoOrdinate + shipSize.get(ship) && j < noOfCols; j++) {
+                        if (!board[xCoOrdinate][j].equals("0"))
                             break;
                         else
                             shipPointsFilled++;
                     }
-                    if(shipPointsFilled == ship_size.get(i))
+                    if(shipPointsFilled == shipSize.get(ship))
                     {
                         isShipPlaced = true;
-                        for (int j = y; j < y + ship_size.get(i); j++)
-                            board[x][j] = "1";
-                        shipCoordinates[i][0] = x;
-                        shipCoordinates[i][1] = y;
-                        shipCoordinates[i][2] = x;
-                        shipCoordinates[i][3] = y + ship_size.get(i) - 1;
+                        for (int j = yCoOrdinate; j < yCoOrdinate + shipSize.get(ship); j++)
+                            board[xCoOrdinate][j] = "1";
+                        shipCoordinates[ship][0] = xCoOrdinate;
+                        shipCoordinates[ship][1] = yCoOrdinate;
+                        shipCoordinates[ship][2] = xCoOrdinate;
+                        shipCoordinates[ship][3] = yCoOrdinate + shipSize.get(ship) - 1;
                     }
                 }
                 if(isShipPlaced) {
-                    System.out.println("Ship" + (i + 1) + " deployed");
-                    i++;
+                    System.out.println("Ship" + (ship + 1) + " deployed");
+                    ship++;
                 }
             }
         }
 
-       for (int i = 0; i < board.length; i++) {
+       for (int row = 0; row < board.length; row++) {
             System.out.print("| ");
-            for (int j = 0; j < board[i].length; j++) {
-                System.out.print(board[i][j]+" ");
+            for (int column = 0; column < board[row].length; column++) {
+                System.out.print(board[row][column]+" ");
             }
             System.out.println();
         }
@@ -117,7 +116,7 @@ public class BattleShipGame {
     }
 
     public static String shootShip(int xCoordinate, int yCoordinate) {
-        if(board[xCoordinate][yCoordinate] == "X" || board[xCoordinate][yCoordinate] == "*")
+        if(board[xCoordinate][yCoordinate].equals("X") || board[xCoordinate][yCoordinate].equals("*"))
         {
             return "Shot Already , Choose other co-ordinates";
         }
@@ -139,16 +138,16 @@ public class BattleShipGame {
 
     private static boolean isSink()
     {
-        int shipCoordinatesFilled = 0;
-        int i = 0;
-        while( i < shipSunk.size())
+        int shipCoordinatesHit;
+        int ship = 0;
+        while( ship < shipRemaining.size())
         {
-            shipCoordinatesFilled = 0;
+            shipCoordinatesHit = 0;
             int flag = 1;
-            for (int j = shipCoordinates[shipSunk.get(i)][0]; j <= shipCoordinates[shipSunk.get(i)][2]; j++) {
-                for (int k = shipCoordinates[shipSunk.get(i)][1]; k <= shipCoordinates[shipSunk.get(i)][3]; k++) {
-                    if (board[j][k] == "X")
-                        shipCoordinatesFilled++;
+            for (int xPositionOfShip = shipCoordinates[shipRemaining.get(ship)][0]; xPositionOfShip <= shipCoordinates[shipRemaining.get(ship)][2]; xPositionOfShip++) {
+                for (int yPositionOfShip = shipCoordinates[shipRemaining.get(ship)][1]; yPositionOfShip <= shipCoordinates[shipRemaining.get(ship)][3]; yPositionOfShip++) {
+                    if (board[xPositionOfShip][yPositionOfShip].equals("X"))
+                        shipCoordinatesHit++;
                     else {
                         flag = 0;
                         break;
@@ -159,17 +158,17 @@ public class BattleShipGame {
                     break;
                 }
             }
-            if (shipCoordinatesFilled == ship_size.get(shipSunk.get(i))) {
-                shipSunk.remove(i);
-                System.out.println("Number of ships remaining : " + shipSunk.size());
+            if (shipCoordinatesHit == shipSize.get(shipRemaining.get(ship))) {
+                shipRemaining.remove(ship);
+                System.out.println("Number of ships remaining : " + shipRemaining.size());
                 return true;
             }
-            i++;
+            ship++;
         }
         return false;
     }
     private static boolean hit(int xCoordinate, int yCoordinate) {
-        if(board[xCoordinate][yCoordinate] == "1")
+        if(board[xCoordinate][yCoordinate].equals("1"))
         {
             board[xCoordinate][yCoordinate] = "X";
             return true;
@@ -201,7 +200,7 @@ public class BattleShipGame {
                     {
                         String result = shootShip(x, y);
                         System.out.println(result);
-                        if(result == "You Won :)")
+                        if(result.equals("You Won :)"))
                             return;
                     }
                     else{

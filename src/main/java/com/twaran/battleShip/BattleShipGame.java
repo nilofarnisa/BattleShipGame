@@ -91,14 +91,14 @@ public class BattleShipGame {
             }
         }
 
-        for (int row = 0; row < board.length; row++) {
+        /*for (int row = 0; row < board.length; row++) {
             System.out.print("| ");
             for (int column = 0; column < board[row].length; column++) {
                 System.out.print(board[row][column] + " ");
             }
             System.out.println();
         }
-        /*for (int i = 0; i < noOfShips; i++) {
+        for (int i = 0; i < noOfShips; i++) {
             for (int j = 0; j < 4; j++) {
                 System.out.print(shipCoordinates[i][j]+" ");
             }
@@ -143,6 +143,11 @@ public class BattleShipGame {
                 }
             }
             if (shipCoordinatesHit == shipSize.get(shipRemaining.get(ship))) {
+                for (int xPositionOfShip = shipCoordinates[shipRemaining.get(ship)][0]; xPositionOfShip <= shipCoordinates[shipRemaining.get(ship)][2]; xPositionOfShip++) {
+                    for (int yPositionOfShip = shipCoordinates[shipRemaining.get(ship)][1]; yPositionOfShip <= shipCoordinates[shipRemaining.get(ship)][3]; yPositionOfShip++) {
+                        board[xPositionOfShip][yPositionOfShip] = "S";
+                    }
+                }
                 shipRemaining.remove(ship);
                 System.out.println("Number of ships remaining : " + shipRemaining.size());
                 return true;
@@ -175,7 +180,7 @@ public class BattleShipGame {
             System.out.println("Choose your option : 1.SHOOT 2.PRINT BOARD 3.QUIT GAME");
             choice = input.nextInt();
             switch (choice) {
-                case 1 :
+                case 1:
                     System.out.println("SHOOT");
                     System.out.println("Enter X and Y co-ordinates: ");
                     int x = input.nextInt();
@@ -189,14 +194,14 @@ public class BattleShipGame {
                         System.out.println("Co-ordinates out of Range. Please enter any value from 0 to 9");
                     }
                     break;
-                case 2 :
+                case 2:
                     System.out.println("PRINT BOARD :");
                     battleShipGame.printBoard();
                     break;
-                case 3 :
+                case 3:
                     System.out.println("You Lost :(");
                     break;
-                default :
+                default:
                     System.out.println("Wrong choice . Choose correct option");
                     break;
             }

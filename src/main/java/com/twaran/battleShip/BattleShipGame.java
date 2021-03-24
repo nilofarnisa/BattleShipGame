@@ -175,7 +175,7 @@ public class BattleShipGame {
             System.out.println("Choose your option : 1.SHOOT 2.PRINT BOARD 3.QUIT GAME");
             choice = input.nextInt();
             switch (choice) {
-                case 1 -> {
+                case 1 :
                     System.out.println("SHOOT");
                     System.out.println("Enter X and Y co-ordinates: ");
                     int x = input.nextInt();
@@ -188,13 +188,17 @@ public class BattleShipGame {
                     } else {
                         System.out.println("Co-ordinates out of Range. Please enter any value from 0 to 9");
                     }
-                }
-                case 2 -> {
+                    break;
+                case 2 :
                     System.out.println("PRINT BOARD :");
                     battleShipGame.printBoard();
-                }
-                case 3 -> System.out.println("You Lost :(");
-                default -> System.out.println("Wrong choice . Choose correct option");
+                    break;
+                case 3 :
+                    System.out.println("You Lost :(");
+                    break;
+                default :
+                    System.out.println("Wrong choice . Choose correct option");
+                    break;
             }
         } while (choice != 3);
     }

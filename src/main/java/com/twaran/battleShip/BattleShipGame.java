@@ -10,6 +10,8 @@ public class BattleShipGame {
     int noOfRows = 10;
     int noOfCols = 10;
     int noOfShips = 5;
+    int shipPointsFilled;
+    boolean isShipPlaced;
     String[][] board = new String[noOfRows][noOfCols];
     ArrayList<Integer> shipSize = new ArrayList<>(Arrays.asList(2, 3, 3, 4, 5));
     Integer[][] shipCoordinates = new Integer[noOfShips][4];
@@ -46,43 +48,14 @@ public class BattleShipGame {
             int xCoordinate = (int) (random() * 10);
             int yCoordinate = (int) (random() * 10);
             int direction = (int) (random() * 2);
-            int shipPointsFilled;
-            boolean isShipPlaced = false;
+            isShipPlaced = false;
 
-            if ((xCoordinate >= 0 && xCoordinate < noOfRows) && (yCoordinate >= 0 && yCoordinate < noOfCols) && (board[xCoordinate][yCoordinate].equals("0"))) {
+            if (board[xCoordinate][yCoordinate].equals("0")) {
                 shipPointsFilled = 0;
                 if (direction == 0) {
-                    for (int currentXCoordinate = xCoordinate; currentXCoordinate < xCoordinate + shipSize.get(ship) && currentXCoordinate < noOfRows; currentXCoordinate++) {
-                        if (!board[currentXCoordinate][yCoordinate].equals("0"))
-                            break;
-                        else
-                            shipPointsFilled++;
-                    }
-                    if (shipPointsFilled == shipSize.get(ship)) {
-                        isShipPlaced = true;
-                        for (int xPositionOfShip = xCoordinate; xPositionOfShip < xCoordinate + shipSize.get(ship); xPositionOfShip++)
-                            board[xPositionOfShip][yCoordinate] = "1";
-                        shipCoordinates[ship][0] = xCoordinate;
-                        shipCoordinates[ship][1] = yCoordinate;
-                        shipCoordinates[ship][2] = xCoordinate + shipSize.get(ship) - 1;
-                        shipCoordinates[ship][3] = yCoordinate;
-                    }
+                    setShipInVerticalPosition(xCoordinate,yCoordinate,ship);
                 } else {
-                    for (int currentYCoordinate = yCoordinate; currentYCoordinate < yCoordinate + shipSize.get(ship) && currentYCoordinate < noOfCols; currentYCoordinate++) {
-                        if (!board[xCoordinate][currentYCoordinate].equals("0"))
-                            break;
-                        else
-                            shipPointsFilled++;
-                    }
-                    if (shipPointsFilled == shipSize.get(ship)) {
-                        isShipPlaced = true;
-                        for (int yPositionOfShip = yCoordinate; yPositionOfShip < yCoordinate + shipSize.get(ship); yPositionOfShip++)
-                            board[xCoordinate][yPositionOfShip] = "1";
-                        shipCoordinates[ship][0] = xCoordinate;
-                        shipCoordinates[ship][1] = yCoordinate;
-                        shipCoordinates[ship][2] = xCoordinate;
-                        shipCoordinates[ship][3] = yCoordinate + shipSize.get(ship) - 1;
-                    }
+                    setShipInHorizontalPosition(xCoordinate,yCoordinate,ship);
                 }
                 if (isShipPlaced) {
                     System.out.println("Ship" + (ship + 1) + " deployed");
@@ -90,8 +63,7 @@ public class BattleShipGame {
                 }
             }
         }
-
-        /*for (int row = 0; row < board.length; row++) {
+        for (int row = 0; row < board.length; row++) {
             System.out.print("| ");
             for (int column = 0; column < board[row].length; column++) {
                 System.out.print(board[row][column] + " ");
@@ -103,7 +75,43 @@ public class BattleShipGame {
                 System.out.print(shipCoordinates[i][j]+" ");
             }
             System.out.println();
-        }*/
+        }
+    }
+
+    private void setShipInHorizontalPosition(int xCoordinate, int yCoordinate, int ship) {
+        for (int currentYCoordinate = yCoordinate; currentYCoordinate < yCoordinate + shipSize.get(ship) && currentYCoordinate < noOfCols; currentYCoordinate++) {
+            if (!board[xCoordinate][currentYCoordinate].equals("0"))
+                break;
+            else
+                shipPointsFilled++;
+        }
+        if (shipPointsFilled == shipSize.get(ship)) {
+            isShipPlaced = true;
+            for (int yPositionOfShip = yCoordinate; yPositionOfShip < yCoordinate + shipSize.get(ship); yPositionOfShip++)
+                board[xCoordinate][yPositionOfShip] = "1";
+            shipCoordinates[ship][0] = xCoordinate;
+            shipCoordinates[ship][1] = yCoordinate;
+            shipCoordinates[ship][2] = xCoordinate;
+            shipCoordinates[ship][3] = yCoordinate + shipSize.get(ship) - 1;
+        }
+    }
+
+    private void setShipInVerticalPosition(int xCoordinate, int yCoordinate, int ship) {
+        for (int currentXCoordinate = xCoordinate; currentXCoordinate < xCoordinate + shipSize.get(ship) && currentXCoordinate < noOfRows; currentXCoordinate++) {
+            if (!board[currentXCoordinate][yCoordinate].equals("0"))
+                break;
+            else
+                shipPointsFilled++;
+        }
+        if (shipPointsFilled == shipSize.get(ship)) {
+            isShipPlaced = true;
+            for (int xPositionOfShip = xCoordinate; xPositionOfShip < xCoordinate + shipSize.get(ship); xPositionOfShip++)
+                board[xPositionOfShip][yCoordinate] = "1";
+            shipCoordinates[ship][0] = xCoordinate;
+            shipCoordinates[ship][1] = yCoordinate;
+            shipCoordinates[ship][2] = xCoordinate + shipSize.get(ship) - 1;
+            shipCoordinates[ship][3] = yCoordinate;
+        }
     }
 
     public String shootShip(int xCoordinate, int yCoordinate) {

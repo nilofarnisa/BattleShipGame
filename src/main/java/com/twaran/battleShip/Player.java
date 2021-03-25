@@ -2,9 +2,9 @@ package com.twaran.battleShip;
 
 public class Player {
 
-    Board boardObject = new Board();
-    Ship shipObject = new Ship();
-    BattleShipGame gameObject = new BattleShipGame();
+    public Board boardObject = BattleShipGame.gameBoard;
+    public Ship shipObject = Computer.shipObj;
+    public BattleShipGame gameObject = new BattleShipGame();
 
     public void printBoard() {
         System.out.print("   0 1 2 3 4 5 6 7 8 9 ");

@@ -5,7 +5,8 @@ import java.util.Arrays;
 
 public class Ship {
 
-    Board boardObject = new Board();
+    public Board boardObject = BattleShipGame.gameBoard;
+
     int noOfShips = 5;
     int shipPointsFilled;
     boolean isShipPlaced;
@@ -13,6 +14,7 @@ public class Ship {
     ArrayList<Integer> shipSize = new ArrayList<>(Arrays.asList(2, 3, 3, 4, 5));
     Integer[][] shipCoordinates = new Integer[noOfShips][4];
     ArrayList<Integer> shipRemaining = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4));
+
     void setShipInHorizontalPosition(int xCoordinate, int yCoordinate, int ship) {
         for (int currentYCoordinate = yCoordinate; currentYCoordinate < yCoordinate + shipSize.get(ship) && currentYCoordinate < boardObject.noOfCols; currentYCoordinate++) {
             if (!boardObject.board[xCoordinate][currentYCoordinate].equals("0"))
@@ -48,6 +50,7 @@ public class Ship {
             shipCoordinates[ship][3] = yCoordinate;
         }
     }
+
     boolean isSink() {
         int shipCoordinatesHit;
         int ship = 0;

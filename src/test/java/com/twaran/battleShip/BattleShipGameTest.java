@@ -10,14 +10,14 @@ public class BattleShipGameTest {
     void shouldReturnTrueIfTheShipIsHit() {
         MockBattleShipGame mockBattleShipGame = new MockBattleShipGame();
 
-        assertTrue(mockBattleShipGame.isHit(0,5));
+        assertTrue(mockBattleShipGame.isHit(0, 5));
     }
 
     @Test
     void shouldReturnFalseIfTheShipIsMissed() {
         MockBattleShipGame mockBattleShipGame = new MockBattleShipGame();
 
-        assertFalse(mockBattleShipGame.isHit(0,0));
+        assertFalse(mockBattleShipGame.isHit(0, 0));
     }
 
     @Test
@@ -35,7 +35,7 @@ public class BattleShipGameTest {
 
         String message = mockPlayer.shootShip(0, 5);
 
-        assertEquals("Function called",message);
+        assertEquals("Function called", message);
 
     }
 
@@ -57,7 +57,7 @@ public class BattleShipGameTest {
         assertTrue(mockBoard.isFunctionCalled);
     }
 
-    private static class MockPlayer extends Player{
+    private static class MockPlayer extends Player {
 
         boolean isPrintBoardCalled = false;
 
@@ -72,7 +72,7 @@ public class BattleShipGameTest {
         }
     }
 
-    private static class MockBattleShipGame extends BattleShipGame{
+    private static class MockBattleShipGame extends BattleShipGame {
         MockComputer mockComputerObject = new MockComputer();
 
         @Override
@@ -82,21 +82,21 @@ public class BattleShipGameTest {
         }
     }
 
-    private static class MockComputer extends Computer{
+    private static class MockComputer extends Computer {
         int xCoordinateOfShip;
         int yCoordinateOfShip;
         boolean isFunctionCalled = false;
 
         @Override
-        void setShip() {
+        public void setShip() {
             xCoordinateOfShip = 0;
             yCoordinateOfShip = 5;
             isFunctionCalled = true;
         }
     }
 
-    private static class MockBoard extends Board{
-        boolean isFunctionCalled =false;
+    private static class MockBoard extends Board {
+        boolean isFunctionCalled = false;
 
         @Override
         public void setBoard() {

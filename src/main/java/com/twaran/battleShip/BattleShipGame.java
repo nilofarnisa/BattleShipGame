@@ -1,11 +1,12 @@
 package com.twaran.battleShip;
+
 import java.util.Scanner;
 
 public class BattleShipGame {
 
-    static Board gameBoard = new Board();
-    static Computer computer = new Computer();
-    static Player player = new Player();
+    public static Board gameBoard = new Board();
+    public static Player player = new Player();
+    public static Computer computer = new Computer();
 
     public boolean isHit(int xCoordinate, int yCoordinate) {
         if (gameBoard.board[xCoordinate][yCoordinate].equals("1")) {
@@ -17,7 +18,9 @@ public class BattleShipGame {
     }
 
     public static void main(String[] args) {
+
         Scanner input = new Scanner(System.in);
+
         System.out.println("Setting the board....");
         gameBoard.setBoard();
         System.out.println("Board Set");

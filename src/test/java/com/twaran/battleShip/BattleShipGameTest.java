@@ -2,58 +2,105 @@ package com.twaran.battleShip;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BattleShipGameTest {
+
     @Test
-    void shouldReturnFunctionCalledIfTheShootShipFunctionIsCalled() {
+    void shouldReturnTrueIfTheShipIsHit() {
         MockBattleShipGame mockBattleShipGame = new MockBattleShipGame();
 
-        String shootResult = mockBattleShipGame.shootShip(0, 0);
-
-        assertEquals("shootShip function called", shootResult);
+        assertTrue(mockBattleShipGame.isHit(0,5));
     }
 
     @Test
-    void shouldReturnTrueIfTheIsHitFunctionIsCalledByShootShipFunction() {
+    void shouldReturnFalseIfTheShipIsMissed() {
         MockBattleShipGame mockBattleShipGame = new MockBattleShipGame();
 
-        mockBattleShipGame.shootShip(0, 0);
-
-        assertTrue(mockBattleShipGame.isHitCalled);
+        assertFalse(mockBattleShipGame.isHit(0,0));
     }
 
     @Test
-    void shouldReturnTrueIfTheIsPrintFunctionIsCalled() {
-        MockBattleShipGame mockBattleShipGame = new MockBattleShipGame();
+    void shouldReturnTrueIfPrintBoardIsCalled() {
+        MockPlayer mockPlayer = new MockPlayer();
 
-        mockBattleShipGame.printBoard();
+        mockPlayer.printBoard();
 
-        assertTrue(mockBattleShipGame.isPrintCalled);
+        assertTrue(mockPlayer.isPrintBoardCalled);
     }
 
-    static class MockBattleShipGame extends BattleShipGame {
+    @Test
+    void shouldReturnFunctionCalledIfShootShipIsCalled() {
+        MockPlayer mockPlayer = new MockPlayer();
 
-        boolean isPrintCalled = false;
-        boolean isHitCalled = false;
+        String message = mockPlayer.shootShip(0, 5);
+
+        assertEquals("Function called",message);
+
+    }
+
+    @Test
+    void shouldReturnTrueIfSetShipIsCalled() {
+        MockComputer mockComputer = new MockComputer();
+
+        mockComputer.setShip();
+
+        assertTrue(mockComputer.isFunctionCalled);
+    }
+
+    @Test
+    void shouldReturnTrueIfSetBoardIsCalled() {
+        MockBoard mockBoard = new MockBoard();
+
+        mockBoard.setBoard();
+
+        assertTrue(mockBoard.isFunctionCalled);
+    }
+
+    private static class MockPlayer extends Player{
+
+        boolean isPrintBoardCalled = false;
 
         @Override
-        public String shootShip(int x, int y) {
-            isHitCalled = isHit(x, y);
-            return "shootShip function called";
-        }
-
-        @Override
-        public boolean isHit(int x, int y) {
-            return true;
+        public String shootShip(int xCoordinate, int yCoordinate) {
+            return "Function called";
         }
 
         @Override
         public void printBoard() {
-            isPrintCalled = true;
+            isPrintBoardCalled = true;
         }
-
     }
 
+    private static class MockBattleShipGame extends BattleShipGame{
+        MockComputer mockComputerObject = new MockComputer();
+
+        @Override
+        public boolean isHit(int xCoordinate, int yCoordinate) {
+            mockComputerObject.setShip();
+            return xCoordinate == mockComputerObject.xCoordinateOfShip && yCoordinate == mockComputerObject.yCoordinateOfShip;
+        }
+    }
+
+    private static class MockComputer extends Computer{
+        int xCoordinateOfShip;
+        int yCoordinateOfShip;
+        boolean isFunctionCalled = false;
+
+        @Override
+        void setShip() {
+            xCoordinateOfShip = 0;
+            yCoordinateOfShip = 5;
+            isFunctionCalled = true;
+        }
+    }
+
+    private static class MockBoard extends Board{
+        boolean isFunctionCalled =false;
+
+        @Override
+        public void setBoard() {
+            isFunctionCalled = true;
+        }
+    }
 }

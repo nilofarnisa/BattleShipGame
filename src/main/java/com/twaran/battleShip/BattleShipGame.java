@@ -7,13 +7,13 @@ import java.util.Scanner;
 import static java.lang.Math.random;
 
 public class BattleShipGame {
-    public static int noOfRows = 10;
-    public static int noOfCols = 10;
-    public static int noOfShips = 5;
-    public static String[][] board = new String[noOfRows][noOfCols];
-    static ArrayList<Integer> shipSize = new ArrayList<>(Arrays.asList(2, 3, 3, 4, 5));
-    static Integer[][] shipCoordinates = new Integer[noOfShips][4];
-    public static ArrayList<Integer> shipRemaining = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4));
+    int noOfRows = 10;
+    int noOfCols = 10;
+    int noOfShips = 5;
+    String[][] board = new String[noOfRows][noOfCols];
+    ArrayList<Integer> shipSize = new ArrayList<>(Arrays.asList(2, 3, 3, 4, 5));
+    Integer[][] shipCoordinates = new Integer[noOfShips][4];
+    ArrayList<Integer> shipRemaining = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4));
 
     public void setBoard() {
         for (int row = 0; row < noOfRows; row++) {
@@ -143,11 +143,7 @@ public class BattleShipGame {
                 }
             }
             if (shipCoordinatesHit == shipSize.get(shipRemaining.get(ship))) {
-                for (int xPositionOfShip = shipCoordinates[shipRemaining.get(ship)][0]; xPositionOfShip <= shipCoordinates[shipRemaining.get(ship)][2]; xPositionOfShip++) {
-                    for (int yPositionOfShip = shipCoordinates[shipRemaining.get(ship)][1]; yPositionOfShip <= shipCoordinates[shipRemaining.get(ship)][3]; yPositionOfShip++) {
-                        board[xPositionOfShip][yPositionOfShip] = "S";
-                    }
-                }
+                sinkShip(ship);
                 shipRemaining.remove(ship);
                 System.out.println("Number of ships remaining : " + shipRemaining.size());
                 return true;
@@ -155,6 +151,14 @@ public class BattleShipGame {
             ship++;
         }
         return false;
+    }
+
+    private void sinkShip(int ship) {
+        for (int xPositionOfShip = shipCoordinates[shipRemaining.get(ship)][0]; xPositionOfShip <= shipCoordinates[shipRemaining.get(ship)][2]; xPositionOfShip++) {
+            for (int yPositionOfShip = shipCoordinates[shipRemaining.get(ship)][1]; yPositionOfShip <= shipCoordinates[shipRemaining.get(ship)][3]; yPositionOfShip++) {
+                board[xPositionOfShip][yPositionOfShip] = "S";
+            }
+        }
     }
 
     public boolean isHit(int xCoordinate, int yCoordinate) {

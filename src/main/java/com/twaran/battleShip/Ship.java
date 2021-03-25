@@ -81,7 +81,7 @@ public class Ship {
         return false;
     }
 
-    private void sinkShip(int ship) {
+    void sinkShip(int ship) {
         for (int xPositionOfShip = shipCoordinates[shipRemaining.get(ship)][0]; xPositionOfShip <= shipCoordinates[shipRemaining.get(ship)][2]; xPositionOfShip++) {
             for (int yPositionOfShip = shipCoordinates[shipRemaining.get(ship)][1]; yPositionOfShip <= shipCoordinates[shipRemaining.get(ship)][3]; yPositionOfShip++) {
                 boardObject.board[xPositionOfShip][yPositionOfShip] = "S";

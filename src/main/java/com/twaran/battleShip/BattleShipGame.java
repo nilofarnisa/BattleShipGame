@@ -53,9 +53,9 @@ public class BattleShipGame {
             if (board[xCoordinate][yCoordinate].equals("0")) {
                 shipPointsFilled = 0;
                 if (direction == 0) {
-                    setShipInVerticalPosition(xCoordinate,yCoordinate,ship);
+                    setShipInVerticalPosition(xCoordinate, yCoordinate, ship);
                 } else {
-                    setShipInHorizontalPosition(xCoordinate,yCoordinate,ship);
+                    setShipInHorizontalPosition(xCoordinate, yCoordinate, ship);
                 }
                 if (isShipPlaced) {
                     System.out.println("Ship" + (ship + 1) + " deployed");
@@ -72,7 +72,7 @@ public class BattleShipGame {
         }
         for (int i = 0; i < noOfShips; i++) {
             for (int j = 0; j < 4; j++) {
-                System.out.print(shipCoordinates[i][j]+" ");
+                System.out.print(shipCoordinates[i][j] + " ");
             }
             System.out.println();
         }

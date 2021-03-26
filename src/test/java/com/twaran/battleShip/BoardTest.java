@@ -5,11 +5,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BoardTest {
+    static MockBoard mockBoardObject = new MockBoard();
 
     @Test
     void shouldReturnArrayIfSetBoardFunctionIsCalled() {
-        MockBoard mockBoardObject = new MockBoard();
-
         mockBoardObject.setBoard();
 
         assertArrayEquals(new String[][]{{"0", "0"},
@@ -22,7 +21,12 @@ class BoardTest {
 
         @Override
         public void setBoard() {
-            mockBoard = new String[][]{{"0", "0"}, {"0", "0"}};
+            Board b1 = mockBoardObject;
+            b1.noOfRows = 2;
+            b1.noOfCols = 2;
+            mockBoard = new String[noOfRows][noOfCols];
+            b1.board = mockBoard;
+            super.setBoard();
         }
     }
 }

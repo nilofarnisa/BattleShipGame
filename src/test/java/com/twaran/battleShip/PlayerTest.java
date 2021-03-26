@@ -62,7 +62,7 @@ class PlayerTest {
         }
     }
 
-    private class MockBattleShipGame extends BattleShipGame {
+    private static class MockBattleShipGame extends BattleShipGame {
         boolean result = false;
 
         @Override
@@ -71,7 +71,7 @@ class PlayerTest {
         }
     }
 
-    private class MockShip extends Ship {
+    private static class MockShip extends Ship {
 
         @Override
         boolean isSink() {

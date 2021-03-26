@@ -21,11 +21,11 @@ class BoardTest {
 
         @Override
         public void setBoard() {
-            Board b1 = mockBoardObject;
-            b1.noOfRows = 2;
-            b1.noOfCols = 2;
+            Board gameBoard = mockBoardObject;
+            gameBoard.noOfRows = 2;
+            gameBoard.noOfCols = 2;
             mockBoard = new String[noOfRows][noOfCols];
-            b1.board = mockBoard;
+            gameBoard.board = mockBoard;
             super.setBoard();
         }
     }

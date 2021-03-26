@@ -49,7 +49,6 @@ class ShipTest {
 
     private class MockShip extends Ship {
 
-        int mockShipSize = 2;
         boolean isSinkShipCalled = false;
 
         @Override
@@ -77,6 +76,4 @@ class ShipTest {
             isSinkShipCalled = true;
         }
     }
-
-
 }

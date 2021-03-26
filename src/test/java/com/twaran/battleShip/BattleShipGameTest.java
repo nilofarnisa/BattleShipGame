@@ -6,16 +6,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class BattleShipGameTest {
 
+    static MockBoard mockBoard = new MockBoard();
+
     @Test
     void shouldReturnTrueIfTheShipIsHit() {
         MockBattleShipGame mockBattleShipGame = new MockBattleShipGame();
 
-        assertTrue(mockBattleShipGame.isHit(0, 5));
+        mockBoard.setBoard();
+
+        assertTrue(mockBattleShipGame.isHit(1, 1));
     }
 
     @Test
     void shouldReturnFalseIfTheShipIsMissed() {
         MockBattleShipGame mockBattleShipGame = new MockBattleShipGame();
+
+        mockBoard.setBoard();
 
         assertFalse(mockBattleShipGame.isHit(0, 0));
     }
@@ -42,6 +48,8 @@ public class BattleShipGameTest {
     @Test
     void shouldReturnTrueIfSetShipIsCalled() {
         MockComputer mockComputer = new MockComputer();
+
+        mockBoard.setBoard();
 
         mockComputer.setShip();
 
@@ -78,28 +86,30 @@ public class BattleShipGameTest {
         @Override
         public boolean isHit(int xCoordinate, int yCoordinate) {
             mockComputerObject.setShip();
-            return xCoordinate == mockComputerObject.xCoordinateOfShip && yCoordinate == mockComputerObject.yCoordinateOfShip;
+            BattleShipGame.gameBoard.board = mockBoard.mockGameBoard;
+            return super.isHit(xCoordinate, yCoordinate);
         }
     }
 
     private static class MockComputer extends Computer {
-        int xCoordinateOfShip;
-        int yCoordinateOfShip;
+        int xCoordinateOfShip = 1;
+        int yCoordinateOfShip = 1;
         boolean isFunctionCalled = false;
 
         @Override
         public void setShip() {
-            xCoordinateOfShip = 0;
-            yCoordinateOfShip = 5;
             isFunctionCalled = true;
+            mockBoard.mockGameBoard[xCoordinateOfShip][yCoordinateOfShip] = "1";
         }
     }
 
     private static class MockBoard extends Board {
+        String[][] mockGameBoard;
         boolean isFunctionCalled = false;
 
         @Override
         public void setBoard() {
+            mockGameBoard = new String[][]{{"0", "0", "0"}, {"0", "0", "0"}, {"0", "0", "0"}};
             isFunctionCalled = true;
         }
     }

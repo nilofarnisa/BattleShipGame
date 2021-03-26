@@ -2,6 +2,10 @@ package com.twaran.battleShip;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
+import java.util.Collections;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ShipTest {
@@ -30,10 +34,19 @@ class ShipTest {
     }
 
     @Test
-    void shouldReturnTrueIfIsSinkAndSinkShipIsCalled() {
+    void shouldReturnFalseIfShipIsNotSunk() {
         MockShip mockShip = new MockShip();
 
-        assertTrue(mockShip.isSink());
+        mockBoard.setBoard();
+
+        assertFalse(mockShip.isSink());
+    }
+
+    @Test
+    void shouldReturnTureIfSinkShipIsCalled() {
+        MockShip mockShip = new MockShip();
+
+        mockShip.sinkShip(0);
 
         assertTrue(mockShip.isSinkShipCalled);
     }
@@ -50,11 +63,15 @@ class ShipTest {
     private class MockShip extends Ship {
 
         boolean isSinkShipCalled = false;
+        int mockNoOfShips = 1;
+        Integer[][] mockShipCoordinates = new Integer[mockNoOfShips][4];
+        ArrayList<Integer> mockShipRemaining = new ArrayList<>(Collections.singletonList(0));
 
         @Override
         void setShipInVerticalPosition(int xCoordinate, int yCoordinate, int ship) {
             shipSize.set(0, 2);
             boardObject.board = mockBoard.mockGameBoard;
+            shipCoordinates = mockShipCoordinates;
             super.setShipInVerticalPosition(0, 0, 0);
         }
 
@@ -62,13 +79,15 @@ class ShipTest {
         void setShipInHorizontalPosition(int xCoordinate, int yCoordinate, int ship) {
             shipSize.set(0, 2);
             boardObject.board = mockBoard.mockGameBoard;
+            shipCoordinates = mockShipCoordinates;
             super.setShipInHorizontalPosition(0, 0, 0);
         }
 
         @Override
         boolean isSink() {
-            sinkShip(0);
-            return true;
+            shipRemaining = mockShipRemaining;
+            setShipInVerticalPosition(0, 0, 0);
+            return super.isSink();
         }
 
         @Override

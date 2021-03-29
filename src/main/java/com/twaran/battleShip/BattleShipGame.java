@@ -30,8 +30,8 @@ public class BattleShipGame {
         String choice;
         do {
             //System.out.println("Choose your option : 1.SHOOT 2.PRINT BOARD 3.QUIT GAME");
-            choice = input.next();
-            choice = choice.replaceAll("\\s", "");
+            choice = input.nextLine();
+            choice = choice.replaceAll("\\s+","");
             choice = choice.toUpperCase();
             System.out.println(choice);
             switch (choice) {

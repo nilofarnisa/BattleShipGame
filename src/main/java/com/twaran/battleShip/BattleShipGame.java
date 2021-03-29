@@ -11,6 +11,10 @@ public class BattleShipGame {
     public boolean isHit(int xCoordinate, int yCoordinate) {
         if (gameBoard.board[xCoordinate][yCoordinate].equals("1")) {
             gameBoard.board[xCoordinate][yCoordinate] = "X";
+            for (int ship = 0; ship < computer.shipRemaining.size(); ship++) {
+                Ship shipObj = computer.shipRemaining.get(ship);
+                shipObj.isSink();
+            }
             return true;
         }
         gameBoard.board[xCoordinate][yCoordinate] = "*";
@@ -26,7 +30,7 @@ public class BattleShipGame {
         System.out.println("Board Set");
         gameBoard.printBoard();
         System.out.println("Setting the Ships in positions");
-        computer.setShip();
+        computer.createShip();
         System.out.println("Ships Set");
         System.out.println("Start...");
         String choice;
@@ -52,8 +56,10 @@ public class BattleShipGame {
                         String result = player.shootShip(x, y);
                         System.out.println(result);
                         gameBoard.printBoard();
-                        if (result.equals("You Won :)"))
+                        if (computer.shipRemaining.size() == 0) {
+                            System.out.println("You Won :)");
                             return;
+                        }
                     } else {
                         System.out.println("Co-ordinates out of Range.");
                     }

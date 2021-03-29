@@ -7,11 +7,11 @@ import static org.junit.jupiter.api.Assertions.*;
 public class BattleShipGameTest {
 
     static MockBoard mockBoard = new MockBoard();
+    MockBattleShipGame mockBattleShipGame = new MockBattleShipGame();
+    MockShip mockShip = new MockShip("Destroyer", 2);
 
     @Test
     void shouldReturnTrueIfTheShipIsHit() {
-        MockBattleShipGame mockBattleShipGame = new MockBattleShipGame();
-
         mockBoard.setBoard();
 
         assertTrue(mockBattleShipGame.isHit(1, 1));
@@ -19,8 +19,6 @@ public class BattleShipGameTest {
 
     @Test
     void shouldReturnFalseIfTheShipIsMissed() {
-        MockBattleShipGame mockBattleShipGame = new MockBattleShipGame();
-
         mockBoard.setBoard();
 
         assertFalse(mockBattleShipGame.isHit(0, 0));
@@ -56,7 +54,7 @@ public class BattleShipGameTest {
 
         mockBoard.setBoard();
 
-        mockComputer.setShip();
+        mockComputer.setShip(mockShip);
 
         assertTrue(mockComputer.isFunctionCalled);
     }
@@ -70,6 +68,11 @@ public class BattleShipGameTest {
         assertTrue(mockBoard.isFunctionCalled);
     }
 
+    @Test
+    void shouldReturnTrueIfIsSinkIsCalled() {
+        assertTrue(mockShip.isSink());
+    }
+
     private static class MockPlayer extends Player {
 
         @Override
@@ -81,10 +84,11 @@ public class BattleShipGameTest {
 
     private static class MockBattleShipGame extends BattleShipGame {
         MockComputer mockComputerObject = new MockComputer();
+        private final MockShip mockship = new MockShip("BattleShip", 3);
 
         @Override
         public boolean isHit(int xCoordinate, int yCoordinate) {
-            mockComputerObject.setShip();
+            mockComputerObject.setShip(mockship);
             BattleShipGame.gameBoard.board = mockBoard.mockGameBoard;
             return super.isHit(xCoordinate, yCoordinate);
         }
@@ -96,7 +100,7 @@ public class BattleShipGameTest {
         boolean isFunctionCalled = false;
 
         @Override
-        public void setShip() {
+        public void setShip(Ship mockShip) {
             isFunctionCalled = true;
             mockBoard.mockGameBoard[xCoordinateOfShip][yCoordinateOfShip] = "1";
         }
@@ -122,6 +126,18 @@ public class BattleShipGameTest {
         @Override
         public void printOpponentBoard() {
             isPrintOpponentBoardCalled = true;
+        }
+    }
+
+    private static class MockShip extends Ship {
+
+        public MockShip(String shipName, int shipSize) {
+            super(shipName, shipSize);
+        }
+
+        @Override
+        boolean isSink() {
+            return true;
         }
     }
 }

@@ -28,13 +28,6 @@ class PlayerTest {
         assertEquals("MISS", message);
     }
 
-    @Test
-    void shouldReturnTrueIfIsSinkIsCalled() {
-        MockShip mockShip = new MockShip();
-
-        assertTrue(mockShip.isSink());
-    }
-
     private class MockPlayer extends Player {
 
         @Override
@@ -52,14 +45,6 @@ class PlayerTest {
         @Override
         public boolean isHit(int xCoordinate, int yCoordinate) {
             return result;
-        }
-    }
-
-    private static class MockShip extends Ship {
-
-        @Override
-        boolean isSink() {
-            return true;
         }
     }
 }

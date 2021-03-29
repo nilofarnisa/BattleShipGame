@@ -15,9 +15,25 @@ class BoardTest {
                 {"0", "0"}}, mockBoardObject.mockBoard);
     }
 
+    @Test
+    void shouldReturnTrueIfPrintBoardIsCalled() {
+        mockBoardObject.printBoard();
+
+        assertTrue(mockBoardObject.isPrintBoardCalled);
+    }
+
+    @Test
+    void shouldReturnTrueIfPrintOpponentBoardIsCalled() {
+        mockBoardObject.printOpponentBoard();
+
+        assertTrue(mockBoardObject.isPrintOpponentBoardCalled);
+    }
+
     private static class MockBoard extends Board {
 
         public String[][] mockBoard;
+        public boolean isPrintOpponentBoardCalled = false;
+        private boolean isPrintBoardCalled = false;
 
         @Override
         public void setBoard() {
@@ -27,6 +43,16 @@ class BoardTest {
             mockBoard = new String[noOfRows][noOfCols];
             gameBoard.board = mockBoard;
             super.setBoard();
+        }
+
+        @Override
+        public void printBoard() {
+            isPrintBoardCalled = true;
+        }
+
+        @Override
+        public void printOpponentBoard() {
+            isPrintOpponentBoardCalled = true;
         }
     }
 }

@@ -21,7 +21,7 @@ public class Computer {
                     shipObj.setShipInHorizontalPosition(xCoordinate, yCoordinate, ship);
                 }
                 if (shipObj.isShipPlaced) {
-                    System.out.println("Ship" + (ship + 1) + " deployed");
+                    //System.out.println("Ship" + (ship + 1) + " deployed");
                     ship++;
                 }
             }

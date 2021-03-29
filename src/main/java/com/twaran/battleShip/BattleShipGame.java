@@ -27,13 +27,14 @@ public class BattleShipGame {
         gameBoard.printBoard();
         System.out.println("Setting the Ships in positions");
         computer.setShip();
+        System.out.println("Ships Set");
+        System.out.println("Start...");
         String choice;
         do {
             //System.out.println("Choose your option : 1.SHOOT 2.PRINT BOARD 3.QUIT GAME");
             choice = input.nextLine();
-            choice = choice.replaceAll("\\s+","");
+            choice = choice.replaceAll("\\s+", "");
             choice = choice.toUpperCase();
-            System.out.println(choice);
             switch (choice) {
                 case "1947":
                     System.out.println("Opponent Board :");
@@ -44,13 +45,13 @@ public class BattleShipGame {
                     System.out.println("You Lost :(");
                     break;
                 default:
-                    int y = choice.charAt(0)-65;
+                    int y = choice.charAt(0) - 65;
                     String row = choice.substring(1);
-                    int x = Integer.parseInt(row)-1;
+                    int x = Integer.parseInt(row) - 1;
                     if ((x >= 0 && x < gameBoard.noOfRows) && (y >= 0 && y < gameBoard.noOfCols)) {
                         String result = player.shootShip(x, y);
-                        gameBoard.printBoard();
                         System.out.println(result);
+                        gameBoard.printBoard();
                         if (result.equals("You Won :)"))
                             return;
                     } else {

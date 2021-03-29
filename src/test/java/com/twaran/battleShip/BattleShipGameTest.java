@@ -34,6 +34,13 @@ public class BattleShipGameTest {
     }
 
     @Test
+    void shouldReturnTrueIfPrintOpponentBoardIsCalled() {
+        mockBoard.printOpponentBoard();
+
+        assertTrue(mockBoard.isPrintOpponentBoardCalled);
+    }
+
+    @Test
     void shouldReturnFunctionCalledIfShootShipIsCalled() {
         MockPlayer mockPlayer = new MockPlayer();
 
@@ -99,6 +106,7 @@ public class BattleShipGameTest {
         String[][] mockGameBoard;
         boolean isFunctionCalled = false;
         boolean isPrintBoardCalled = false;
+        private boolean isPrintOpponentBoardCalled = false;
 
         @Override
         public void setBoard() {
@@ -109,6 +117,11 @@ public class BattleShipGameTest {
         @Override
         public void printBoard() {
             isPrintBoardCalled = true;
+        }
+
+        @Override
+        public void printOpponentBoard() {
+            isPrintOpponentBoardCalled = true;
         }
     }
 }

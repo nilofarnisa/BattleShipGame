@@ -9,15 +9,6 @@ class PlayerTest {
     MockBattleShipGame mockBattleShipGame = new MockBattleShipGame();
 
     @Test
-    void shouldReturnTrueIfPrintBoardIsCalled() {
-        MockPlayer mockPlayer = new MockPlayer();
-
-        mockPlayer.printBoard();
-
-        assertTrue(mockPlayer.isPrintCalled);
-    }
-
-    @Test
     void shouldReturnHITIfShipIsShot() {
         MockPlayer mockPlayer = new MockPlayer();
 
@@ -45,13 +36,6 @@ class PlayerTest {
     }
 
     private class MockPlayer extends Player {
-
-        boolean isPrintCalled = false;
-
-        @Override
-        public void printBoard() {
-            isPrintCalled = true;
-        }
 
         @Override
         public String shootShip(int xCoordinate, int yCoordinate) {

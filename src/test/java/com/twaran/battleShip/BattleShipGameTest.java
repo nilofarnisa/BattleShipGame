@@ -28,11 +28,9 @@ public class BattleShipGameTest {
 
     @Test
     void shouldReturnTrueIfPrintBoardIsCalled() {
-        MockPlayer mockPlayer = new MockPlayer();
+        mockBoard.printBoard();
 
-        mockPlayer.printBoard();
-
-        assertTrue(mockPlayer.isPrintBoardCalled);
+        assertTrue(mockBoard.isPrintBoardCalled);
     }
 
     @Test
@@ -67,17 +65,11 @@ public class BattleShipGameTest {
 
     private static class MockPlayer extends Player {
 
-        boolean isPrintBoardCalled = false;
-
         @Override
         public String shootShip(int xCoordinate, int yCoordinate) {
             return "Function called";
         }
 
-        @Override
-        public void printBoard() {
-            isPrintBoardCalled = true;
-        }
     }
 
     private static class MockBattleShipGame extends BattleShipGame {
@@ -106,11 +98,17 @@ public class BattleShipGameTest {
     private static class MockBoard extends Board {
         String[][] mockGameBoard;
         boolean isFunctionCalled = false;
+        boolean isPrintBoardCalled = false;
 
         @Override
         public void setBoard() {
             mockGameBoard = new String[][]{{"0", "0", "0"}, {"0", "0", "0"}, {"0", "0", "0"}};
             isFunctionCalled = true;
+        }
+
+        @Override
+        public void printBoard() {
+            isPrintBoardCalled = true;
         }
     }
 }

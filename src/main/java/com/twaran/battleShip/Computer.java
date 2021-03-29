@@ -8,8 +8,8 @@ public class Computer {
 
     public void setShip() {
         for (int ship = 0; ship < shipObj.noOfShips; ) {
-            int xCoordinate = (int) (random() * 10);
-            int yCoordinate = (int) (random() * 10);
+            int xCoordinate = (int) (random() * boardObject.noOfRows);
+            int yCoordinate = (int) (random() * boardObject.noOfCols);
             int direction = (int) (random() * 2);
             shipObj.isShipPlaced = false;
 
@@ -26,13 +26,7 @@ public class Computer {
                 }
             }
         }
-        /*for (int row = 0; row < boardObject.board.length; row++) {
-            System.out.print("| ");
-            for (int column = 0; column < boardObject.board[row].length; column++) {
-                System.out.print(boardObject.board[row][column] + " ");
-            }
-            System.out.println();
-        }
+        /*
         for (int i = 0; i < shipObj.noOfShips; i++) {
             for (int j = 0; j < 4; j++) {
                 System.out.print(shipObj.shipCoordinates[i][j] + " ");

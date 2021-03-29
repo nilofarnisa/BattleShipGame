@@ -24,39 +24,40 @@ public class BattleShipGame {
         System.out.println("Setting the board....");
         gameBoard.setBoard();
         System.out.println("Board Set");
-        player.printBoard();
+        gameBoard.printBoard();
         System.out.println("Setting the Ships in positions");
         computer.setShip();
-        int choice;
+        String choice;
         do {
-            System.out.println("Choose your option : 1.SHOOT 2.PRINT BOARD 3.QUIT GAME");
-            choice = input.nextInt();
+            //System.out.println("Choose your option : 1.SHOOT 2.PRINT BOARD 3.QUIT GAME");
+            choice = input.next();
+            choice = choice.replaceAll("\\s", "");
+            choice = choice.toUpperCase();
+            System.out.println(choice);
             switch (choice) {
-                case 1:
-                    System.out.println("SHOOT");
-                    System.out.println("Enter X and Y co-ordinates: ");
-                    int x = input.nextInt();
-                    int y = input.nextInt();
-                    if ((x >= 0 && x <= 9) && (y >= 0 && y <= 9)) {
+                case "1947":
+                    System.out.println("Opponent Board :");
+                    gameBoard.printOpponentBoard();
+                    break;
+                case "QUIT":
+                    gameBoard.printOpponentBoard();
+                    System.out.println("You Lost :(");
+                    break;
+                default:
+                    int y = choice.charAt(0)-65;
+                    String row = choice.substring(1);
+                    int x = Integer.parseInt(row)-1;
+                    if ((x >= 0 && x < gameBoard.noOfRows) && (y >= 0 && y < gameBoard.noOfCols)) {
                         String result = player.shootShip(x, y);
+                        gameBoard.printBoard();
                         System.out.println(result);
                         if (result.equals("You Won :)"))
                             return;
                     } else {
-                        System.out.println("Co-ordinates out of Range. Please enter any value from 0 to 9");
+                        System.out.println("Co-ordinates out of Range.");
                     }
                     break;
-                case 2:
-                    System.out.println("PRINT BOARD :");
-                    player.printBoard();
-                    break;
-                case 3:
-                    System.out.println("You Lost :(");
-                    break;
-                default:
-                    System.out.println("Wrong choice . Choose correct option");
-                    break;
             }
-        } while (choice != 3);
+        } while (!choice.equals("QUIT"));
     }
 }

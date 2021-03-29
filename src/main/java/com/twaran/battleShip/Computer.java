@@ -28,6 +28,7 @@ public class Computer {
         }
     }
 
+    // TODO, How does Computer decide how many certain Ships to create? Some better way to make this dynamic and customizable
     public void createShip() {
         Ship carrier = new Ship("Carrier", 5);
         setShip(carrier);

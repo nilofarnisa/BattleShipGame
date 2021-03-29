@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class BattleShipGame {
 
+    // TODO Why static fields ? This would make these field untested. Static cannot be tested in unit tests.
     public static Board gameBoard = new Board();
     public static Player player = new Player();
     public static Computer computer = new Computer();

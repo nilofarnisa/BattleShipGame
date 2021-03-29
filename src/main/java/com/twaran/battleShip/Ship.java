@@ -16,6 +16,7 @@ public class Ship {
         this.shipSize = shipSize;
     }
 
+    // TODO = What if in future, number of ships are decreased or increased ? This is not customized now
     int[] shipCoordinate = new int[4];
 
     void setShipInHorizontalPosition(int xCoordinate, int yCoordinate) {

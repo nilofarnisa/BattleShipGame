@@ -1,6 +1,8 @@
 package com.twaran.battleShip;
 
 public class Board {
+
+    // TODO magic numbers, How to make it better and customizable? in future if Board becomes large, say 50*50, how will current code be impacted?
     int noOfRows = 10;
     int noOfCols = 10;
     String[][] board = new String[noOfRows][noOfCols];
@@ -8,6 +10,7 @@ public class Board {
     public void setBoard() {
         for (int row = 0; row < noOfRows; row++) {
             for (int column = 0; column < noOfCols; column++) {
+                // TODO = What 0 denotes is not understandable while reading the code. How can you improve its readability
                 board[row][column] = "0";
             }
         }
@@ -16,6 +19,7 @@ public class Board {
     public void printBoard() {
         System.out.print("   ");
         for (int cols = 0; cols < noOfCols; cols++) {
+            // TODO = Magic number again, Why 65 here ? Some better way to denote this?
             System.out.print((char) (cols + 65) + " ");
         }
         System.out.println();

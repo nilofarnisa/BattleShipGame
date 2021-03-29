@@ -13,7 +13,6 @@ public class Board {
         }
     }
 
-
     public void printBoard() {
         System.out.print("   ");
         for (int cols = 0; cols < noOfCols; cols++) {

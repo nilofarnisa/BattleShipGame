@@ -6,6 +6,7 @@ public class Player {
     public BattleShipGame gameObject = new BattleShipGame();
 
     public String shootShip(int xCoordinate, int yCoordinate) {
+        // TODO = Having X/* is not readable. Could be improved
         if (boardObject.board[xCoordinate][yCoordinate].equals("X") || boardObject.board[xCoordinate][yCoordinate].equals("*")) {
             return "Shot Already , Choose other co-ordinates";
         }

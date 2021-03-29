@@ -106,6 +106,7 @@ public class BattleShipGameTest {
         }
     }
 
+    // TODO Were you not able to use the mock of real class ? Instead of creating a duplicate ?  (question is Applicable for all mockclasses)
     private static class MockBoard extends Board {
         String[][] mockGameBoard;
         boolean isFunctionCalled = false;

@@ -1,8 +1,8 @@
 package com.twaran.battleShip;
 
 public class Board {
-    int noOfRows = 10;
-    int noOfCols = 10;
+    final int noOfRows = 10;
+    final int noOfCols = 10;
     final int ASCII_VALUE_OF_A = 65;
     String noShip = "0";
     String ship = "1";

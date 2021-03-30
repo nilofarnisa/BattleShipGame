@@ -38,8 +38,8 @@ class BoardTest {
         @Override
         public void setBoard() {
             Board gameBoard = mockBoardObject;
-            gameBoard.noOfRows = 2;
-            gameBoard.noOfCols = 2;
+            //gameBoard.noOfRows = 2;
+            //gameBoard.noOfCols = 2;
             mockBoard = new String[noOfRows][noOfCols];
             gameBoard.board = mockBoard;
             super.setBoard();

@@ -64,14 +64,14 @@ class ShipTest {
         @Override
         void setShipInVerticalPosition(int xCoordinate, int yCoordinate) {
             boardObject.board = mockBoard.mockGameBoard;
-            shipCoordinate = mockShipCoordinates;
+            shipLocation = mockShipCoordinates;
             super.setShipInVerticalPosition(0, 0);
         }
 
         @Override
         void setShipInHorizontalPosition(int xCoordinate, int yCoordinate) {
             boardObject.board = mockBoard.mockGameBoard;
-            shipCoordinate = mockShipCoordinates;
+            shipLocation = mockShipCoordinates;
             super.setShipInHorizontalPosition(0, 0);
         }
 

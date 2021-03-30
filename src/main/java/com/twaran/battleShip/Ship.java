@@ -6,16 +6,16 @@ public class Ship {
     public Computer computerObject = BattleShipGame.computer;
 
     int shipPointsFilled;
+    final int noOfCoordinates = 4;
     boolean isShipPlaced;
     public String shipName;
     public int shipSize;
+    int[] shipLocation = new int[noOfCoordinates];
 
     public Ship(String shipName, int shipSize) {
         this.shipName = shipName;
         this.shipSize = shipSize;
     }
-
-    int[] shipCoordinate = new int[4];
 
     void setShipInHorizontalPosition(int xCoordinate, int yCoordinate) {
         for (int currentYCoordinate = yCoordinate; currentYCoordinate < yCoordinate + shipSize && currentYCoordinate < boardObject.noOfCols; currentYCoordinate++) {
@@ -28,10 +28,10 @@ public class Ship {
             isShipPlaced = true;
             for (int yPositionOfShip = yCoordinate; yPositionOfShip < yCoordinate + shipSize; yPositionOfShip++)
                 boardObject.board[xCoordinate][yPositionOfShip] = "1";
-            shipCoordinate[0] = xCoordinate;
-            shipCoordinate[1] = yCoordinate;
-            shipCoordinate[2] = xCoordinate;
-            shipCoordinate[3] = yCoordinate + shipSize - 1;
+            shipLocation[0] = xCoordinate;
+            shipLocation[1] = yCoordinate;
+            shipLocation[2] = xCoordinate;
+            shipLocation[3] = yCoordinate + shipSize - 1;
         }
     }
 
@@ -46,18 +46,18 @@ public class Ship {
             isShipPlaced = true;
             for (int xPositionOfShip = xCoordinate; xPositionOfShip < xCoordinate + shipSize; xPositionOfShip++)
                 boardObject.board[xPositionOfShip][yCoordinate] = "1";
-            shipCoordinate[0] = xCoordinate;
-            shipCoordinate[1] = yCoordinate;
-            shipCoordinate[2] = xCoordinate + shipSize - 1;
-            shipCoordinate[3] = yCoordinate;
+            shipLocation[0] = xCoordinate;
+            shipLocation[1] = yCoordinate;
+            shipLocation[2] = xCoordinate + shipSize - 1;
+            shipLocation[3] = yCoordinate;
         }
     }
 
     boolean isSink() {
         int shipCoordinatesHit = 0;
         int isShipHit = 1;
-        for (int xPositionOfShip = shipCoordinate[0]; xPositionOfShip <= shipCoordinate[2]; xPositionOfShip++) {
-            for (int yPositionOfShip = shipCoordinate[1]; yPositionOfShip <= shipCoordinate[3]; yPositionOfShip++) {
+        for (int xPositionOfShip = shipLocation[0]; xPositionOfShip <= shipLocation[2]; xPositionOfShip++) {
+            for (int yPositionOfShip = shipLocation[1]; yPositionOfShip <= shipLocation[3]; yPositionOfShip++) {
                 if (boardObject.board[xPositionOfShip][yPositionOfShip].equals("X"))
                     shipCoordinatesHit++;
                 else {
@@ -79,8 +79,8 @@ public class Ship {
     }
 
     void sinkShip() {
-        for (int xPositionOfShip = shipCoordinate[0]; xPositionOfShip <= shipCoordinate[2]; xPositionOfShip++) {
-            for (int yPositionOfShip = shipCoordinate[1]; yPositionOfShip <= shipCoordinate[3]; yPositionOfShip++) {
+        for (int xPositionOfShip = shipLocation[0]; xPositionOfShip <= shipLocation[2]; xPositionOfShip++) {
+            for (int yPositionOfShip = shipLocation[1]; yPositionOfShip <= shipLocation[3]; yPositionOfShip++) {
                 boardObject.board[xPositionOfShip][yPositionOfShip] = "S";
             }
         }

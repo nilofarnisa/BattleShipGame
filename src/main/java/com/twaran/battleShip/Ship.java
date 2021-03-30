@@ -5,7 +5,6 @@ public class Ship {
     public Board boardObject = BattleShipGame.gameBoard;
     public Computer computerObject = BattleShipGame.computer;
 
-    //int noOfShips = 5;
     int shipPointsFilled;
     boolean isShipPlaced;
     public String shipName;

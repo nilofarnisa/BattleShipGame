@@ -85,11 +85,12 @@ public class BattleShipGameTest {
     private static class MockBattleShipGame extends BattleShipGame {
         MockComputer mockComputerObject = new MockComputer();
         private final MockShip mockship = new MockShip("BattleShip", 3);
+        BattleShipGame gameObject = new BattleShipGame();
 
         @Override
         public boolean isHit(int xCoordinate, int yCoordinate) {
             mockComputerObject.setShip(mockship);
-            BattleShipGame.gameBoard.board = mockBoard.mockGameBoard;
+            gameObject.gameBoard.board = mockBoard.mockGameBoard;
             return super.isHit(xCoordinate, yCoordinate);
         }
     }

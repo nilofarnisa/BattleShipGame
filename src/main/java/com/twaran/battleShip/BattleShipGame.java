@@ -8,6 +8,7 @@ public class BattleShipGame {
     public static Player player = new Player();
     public static Computer computer = new Computer();
 
+
     public boolean isHit(int xCoordinate, int yCoordinate) {
         if (gameBoard.board[xCoordinate][yCoordinate].equals("1")) {
             gameBoard.board[xCoordinate][yCoordinate] = "X";
@@ -24,7 +25,7 @@ public class BattleShipGame {
     public static void main(String[] args) {
 
         Scanner input = new Scanner(System.in);
-
+        final int ASCII_VALUE_OF_A = 65;
         System.out.println("Setting the board....");
         gameBoard.setBoard();
         System.out.println("Board Set");
@@ -49,7 +50,7 @@ public class BattleShipGame {
                     System.out.println("You Lost :(");
                     break;
                 default:
-                    int y = choice.charAt(0) - 65;
+                    int y = choice.charAt(0) - ASCII_VALUE_OF_A;
                     String row = choice.substring(1);
                     int x = Integer.parseInt(row) - 1;
                     if ((x >= 0 && x < gameBoard.noOfRows) && (y >= 0 && y < gameBoard.noOfCols)) {

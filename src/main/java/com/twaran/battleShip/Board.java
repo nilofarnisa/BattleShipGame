@@ -6,6 +6,8 @@ public class Board {
     final int ASCII_VALUE_OF_A = 65;
     String noShip = "0";
     String ship = "1";
+    String hit = "X";
+    String miss = "*";
     String[][] board = new String[noOfRows][noOfCols];
 
     public void setBoard() {

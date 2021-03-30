@@ -10,15 +10,15 @@ public class BattleShipGame {
 
 
     public boolean isHit(int xCoordinate, int yCoordinate) {
-        if (gameBoard.board[xCoordinate][yCoordinate].equals("1")) {
-            gameBoard.board[xCoordinate][yCoordinate] = "X";
+        if (gameBoard.board[xCoordinate][yCoordinate].equals(gameBoard.ship)) {
+            gameBoard.board[xCoordinate][yCoordinate] = gameBoard.hit;
             for (int ship = 0; ship < computer.shipRemaining.size(); ship++) {
                 Ship shipObj = computer.shipRemaining.get(ship);
                 shipObj.isSink();
             }
             return true;
         }
-        gameBoard.board[xCoordinate][yCoordinate] = "*";
+        gameBoard.board[xCoordinate][yCoordinate] = gameBoard.miss;
         return false;
     }
 
@@ -32,7 +32,6 @@ public class BattleShipGame {
         gameBoard.printBoard();
         System.out.println("Setting the Ships in positions");
         computer.createShip();
-        System.out.println("Ships Set");
         System.out.println("Start...");
         String choice;
         do {

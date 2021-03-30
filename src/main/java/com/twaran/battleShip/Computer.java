@@ -14,7 +14,7 @@ public class Computer {
             int yCoordinate = (int) (random() * boardObject.noOfCols);
             int direction = (int) (random() * 2);
 
-            if (boardObject.board[xCoordinate][yCoordinate].equals("0")) {
+            if (boardObject.board[xCoordinate][yCoordinate].equals(boardObject.noShip)) {
                 shipObj.shipPointsFilled = 0;
                 if (direction == 0) {
                     shipObj.setShipInVerticalPosition(xCoordinate, yCoordinate);
@@ -22,7 +22,7 @@ public class Computer {
                     shipObj.setShipInHorizontalPosition(xCoordinate, yCoordinate);
                 }
                 if (shipObj.isShipPlaced) {
-                    System.out.println("Ship" + shipObj.shipName + " deployed");
+                    System.out.println(shipObj.shipName + " deployed");
                 }
             }
         }

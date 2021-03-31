@@ -11,11 +11,13 @@ public class Board {
     String[][] board = new String[noOfRows][noOfCols];
 
     public void setBoard() {
+        System.out.println("Setting the board....");
         for (int row = 0; row < noOfRows; row++) {
             for (int column = 0; column < noOfCols; column++) {
                 board[row][column] = noShip;
             }
         }
+        System.out.println("Board Set");
     }
 
     public void printBoard() {

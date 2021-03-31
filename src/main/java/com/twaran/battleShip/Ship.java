@@ -5,9 +5,9 @@ public class Ship {
     public Board boardObject = BattleShipGame.gameBoard;
     public Computer computerObject = BattleShipGame.computer;
 
-    int shipPointsFilled;
+    int pointsFilled;
     final int noOfCoordinates = 4;
-    boolean isShipPlaced;
+    boolean isOnBoard;
     public String shipName;
     public int shipSize;
     int[] shipLocation = new int[noOfCoordinates];
@@ -22,10 +22,10 @@ public class Ship {
             if (!boardObject.board[xCoordinate][currentYCoordinate].equals("0"))
                 break;
             else
-                shipPointsFilled++;
+                pointsFilled++;
         }
-        if (shipPointsFilled == shipSize) {
-            isShipPlaced = true;
+        if (pointsFilled == shipSize) {
+            isOnBoard = true;
             for (int yPositionOfShip = yCoordinate; yPositionOfShip < yCoordinate + shipSize; yPositionOfShip++)
                 boardObject.board[xCoordinate][yPositionOfShip] = "1";
             shipLocation[0] = xCoordinate;
@@ -40,10 +40,10 @@ public class Ship {
             if (!boardObject.board[currentXCoordinate][yCoordinate].equals("0"))
                 break;
             else
-                shipPointsFilled++;
+                pointsFilled++;
         }
-        if (shipPointsFilled == shipSize) {
-            isShipPlaced = true;
+        if (pointsFilled == shipSize) {
+            isOnBoard = true;
             for (int xPositionOfShip = xCoordinate; xPositionOfShip < xCoordinate + shipSize; xPositionOfShip++)
                 boardObject.board[xPositionOfShip][yCoordinate] = "1";
             shipLocation[0] = xCoordinate;
@@ -71,8 +71,8 @@ public class Ship {
         }
         if (shipCoordinatesHit == shipSize) {
             sinkShip();
-            computerObject.shipRemaining.remove(this);
-            System.out.println("Number of ships remaining : " + computerObject.shipRemaining.size());
+            computerObject.listOfShipsOnBoard.remove(this);
+            System.out.println("Number of ships remaining : " + computerObject.listOfShipsOnBoard.size());
             return true;
         }
         return false;

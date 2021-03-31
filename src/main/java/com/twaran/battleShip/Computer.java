@@ -5,45 +5,45 @@ import java.util.ArrayList;
 import static java.lang.Math.random;
 
 public class Computer {
-    public Board boardObject = BattleShipGame.gameBoard;
-    ArrayList<Ship> shipRemaining = new ArrayList<>();
+    //public Board boardObject = BattleShipGame.gameBoard;
+    ArrayList<Ship> listOfShipsOnBoard = new ArrayList<>();
 
-    public void createShip() {
+
+    public Board createShipsOnBoard(Board board) {
+        System.out.println("Setting the Ships in positions");
         Ship carrier = new Ship("Carrier", 5);
-        setShip(carrier);
-        shipRemaining.add(carrier);
         Ship battleShip = new Ship("BattleShip", 4);
-        setShip(battleShip);
-        shipRemaining.add(battleShip);
         Ship cruiser = new Ship("Cruiser", 3);
-        setShip(cruiser);
-        shipRemaining.add(cruiser);
         Ship subMarine = new Ship("SubMarine", 3);
-        setShip(subMarine);
-        shipRemaining.add(subMarine);
         Ship destroyer = new Ship("Destroyer", 2);
-        setShip(destroyer);
-        shipRemaining.add(destroyer);
+
+        placeShipRandomlyOnBoard(carrier,board);
+        placeShipRandomlyOnBoard(battleShip,board);
+        placeShipRandomlyOnBoard(cruiser,board);
+        placeShipRandomlyOnBoard(subMarine,board);
+        placeShipRandomlyOnBoard(destroyer,board);
+
+        return board;
     }
 
-    public void setShip(Ship shipObj) {
-        while (!shipObj.isShipPlaced) {
-            int xCoordinate = (int) (random() * boardObject.noOfRows);
-            int yCoordinate = (int) (random() * boardObject.noOfCols);
+    public Board placeShipRandomlyOnBoard(Ship ship, Board board) {
+        while (!ship.isOnBoard) {
+            int xCoordinate = (int) (random() * board.noOfRows);
+            int yCoordinate = (int) (random() * board.noOfCols);
             int direction = (int) (random() * 2);
+            final int VERTICAL = 0;
 
-            if (boardObject.board[xCoordinate][yCoordinate].equals(boardObject.noShip)) {
-                shipObj.shipPointsFilled = 0;
-                if (direction == 0) {
-                    shipObj.setShipInVerticalPosition(xCoordinate, yCoordinate);
+            if (board.board[xCoordinate][yCoordinate].equals(board.noShip)) {
+                ship.pointsFilled = 0;
+                if (direction == VERTICAL) {
+                    ship.setShipInVerticalPosition(xCoordinate, yCoordinate);
                 } else {
-                    shipObj.setShipInHorizontalPosition(xCoordinate, yCoordinate);
-                }
-                if (shipObj.isShipPlaced) {
-                    System.out.println(shipObj.shipName + " deployed");
+                    ship.setShipInHorizontalPosition(xCoordinate, yCoordinate);
                 }
             }
         }
+        System.out.println(ship.shipName + " deployed");
+        listOfShipsOnBoard.add(ship);
+        return board;
     }
-
 }

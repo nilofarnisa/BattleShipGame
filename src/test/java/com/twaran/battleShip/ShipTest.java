@@ -77,7 +77,7 @@ class ShipTest {
 
         @Override
         boolean isSink() {
-            computerObject.shipRemaining = mockComputer.mockShipRemaining;
+            computerObject.listOfShipsOnBoard = mockComputer.mockShipRemaining;
             setShipInVerticalPosition(0, 0);
             return super.isSink();
         }

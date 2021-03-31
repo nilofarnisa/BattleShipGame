@@ -16,7 +16,7 @@ class ComputerTest {
 
         mockBoard.setBoard();
 
-        mockComputer.setShip(mockShip);
+        mockComputer.placeShipRandomlyOnBoard(mockShip,mockBoard);
 
         assertEquals("1", mockBoard.mockGameBoard[1][1]);
     }
@@ -68,10 +68,11 @@ class ComputerTest {
         int mockYCoordinate;
 
         @Override
-        public void setShip(Ship mockShip) {
+        public Board placeShipRandomlyOnBoard(Ship mockShip, Board board) {
             mockXCoordinate = 1;
             mockYCoordinate = 1;
             mockBoard.mockGameBoard[mockXCoordinate][mockYCoordinate] = "1";
+            return board;
         }
     }
 }

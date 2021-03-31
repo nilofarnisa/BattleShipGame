@@ -54,7 +54,7 @@ public class BattleShipGameTest {
 
         mockBoard.setBoard();
 
-        mockComputer.setShip(mockShip);
+        mockComputer.placeShipRandomlyOnBoard(mockShip,mockBoard);
 
         assertTrue(mockComputer.isFunctionCalled);
     }
@@ -89,7 +89,7 @@ public class BattleShipGameTest {
 
         @Override
         public boolean isHit(int xCoordinate, int yCoordinate) {
-            mockComputerObject.setShip(mockship);
+            mockComputerObject.placeShipRandomlyOnBoard(mockship,mockBoard);
             gameObject.gameBoard.board = mockBoard.mockGameBoard;
             return super.isHit(xCoordinate, yCoordinate);
         }
@@ -101,9 +101,10 @@ public class BattleShipGameTest {
         boolean isFunctionCalled = false;
 
         @Override
-        public void setShip(Ship mockShip) {
+        public Board placeShipRandomlyOnBoard(Ship mockShip, Board board) {
             isFunctionCalled = true;
             mockBoard.mockGameBoard[xCoordinateOfShip][yCoordinateOfShip] = "1";
+            return board;
         }
     }
 

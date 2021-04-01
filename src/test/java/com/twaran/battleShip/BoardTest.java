@@ -1,58 +1,82 @@
 package com.twaran.battleShip;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class BoardTest {
-    static MockBoard mockBoardObject = new MockBoard();
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
 
-    @Test
-    void shouldReturnArrayIfSetBoardFunctionIsCalled() {
-        mockBoardObject.setBoard();
+    @BeforeEach
+    public void setUpStreams() {
+        System.setOut(new PrintStream(outContent));
+    }
 
-        assertArrayEquals(new String[][]{{"0", "0"},
-                {"0", "0"}}, mockBoardObject.mockBoard);
+    @AfterEach
+    public void restoreStreams() {
+        System.setOut(originalOut);
     }
 
     @Test
-    void shouldReturnTrueIfPrintBoardIsCalled() {
-        mockBoardObject.printBoard();
-
-        assertTrue(mockBoardObject.isPrintBoardCalled);
+    void shouldReturnThePlayerBoardWhenPrintBoardIsCalled() {
+        Board board = new Board(2, 2);
+        board.setBoard();
+        board.printBoard();
+        assertEquals("Setting the board....\n" + "Board Set\n     A B \n  1| ~ ~ |\n  2| ~ ~ |\n\n", outContent.toString());
     }
 
     @Test
-    void shouldReturnTrueIfPrintOpponentBoardIsCalled() {
-        mockBoardObject.printOpponentBoard();
+    void shouldPlaceShipRandomlyOnBoard() {
+        Board board = new Board(5, 5);
+        Ship ship = new Ship("BattleShip", 3);
+        Computer computer = new Computer();
 
-        assertTrue(mockBoardObject.isPrintOpponentBoardCalled);
+        board.setBoard();
+        board.placeShipRandomlyOnBoard(ship, computer);
+
+        assertEquals(1, computer.listOfShipsOnBoard.size());
     }
 
-    private static class MockBoard extends Board {
+    @Test
+    void shouldReturnTrueIfShipIsHit() {
+        Board board = new Board(5, 5);
+        Ship ship = new Ship("BattleShip", 3);
+        Computer computer = new Computer();
 
-        public String[][] mockBoard;
-        public boolean isPrintOpponentBoardCalled = false;
-        private boolean isPrintBoardCalled = false;
+        board.setBoard();
+        board.placeShipRandomlyOnBoard(ship, computer);
 
-        @Override
-        public void setBoard() {
-            Board gameBoard = mockBoardObject;
-            //gameBoard.noOfRows = 2;
-            //gameBoard.noOfCols = 2;
-            mockBoard = new String[noOfRows][noOfCols];
-            gameBoard.board = mockBoard;
-            super.setBoard();
+        int xCoordinate = ship.shipLocation[0];
+        int yCoordinate = ship.shipLocation[1];
+        boolean shipHit = board.isShipHit(xCoordinate, yCoordinate);
+
+        assertTrue(shipHit);
+    }
+
+    @Test
+    void shouldReturnFalseIfShipIsNotHit() {
+        Board board = new Board(5, 5);
+        Ship ship = new Ship("BattleShip", 3);
+        Computer computer = new Computer();
+
+        board.setBoard();
+        board.placeShipRandomlyOnBoard(ship, computer);
+
+        int xCoordinate = 0;
+        int yCoordinate = 0;
+
+        while (Arrays.asList(ship.shipLocation).contains(xCoordinate)) {
+            xCoordinate++;
         }
 
-        @Override
-        public void printBoard() {
-            isPrintBoardCalled = true;
-        }
+        boolean shipHit = board.isShipHit(xCoordinate, yCoordinate);
 
-        @Override
-        public void printOpponentBoard() {
-            isPrintOpponentBoardCalled = true;
-        }
+        assertFalse(shipHit);
     }
 }

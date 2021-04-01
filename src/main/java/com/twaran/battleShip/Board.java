@@ -3,16 +3,22 @@ package com.twaran.battleShip;
 import static java.lang.Math.random;
 
 public class Board {
-    final int noOfRows = 10;
-    final int noOfCols = 10;
+    int noOfRows;
+    int noOfCols;
     final int ASCII_VALUE_OF_A = 65;
     String noShip = "0";
     String ship = "1";
     String hit = "X";
     String miss = "*";
     String sink = "S";
-    String[][] board = new String[noOfRows][noOfCols];
+    String[][] board;
     private Computer computer;
+
+    public Board(int noOfRows, int noOfCols) {
+        this.noOfRows = noOfRows;
+        this.noOfCols = noOfCols;
+        board = new String[this.noOfRows][this.noOfCols];
+    }
 
     public void setBoard() {
         System.out.println("Setting the board....");

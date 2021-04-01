@@ -69,7 +69,7 @@ public class Ship {
         if (shipCoordinatesHit == shipSize) {
             sinkShip(board);
             computer.listOfShipsOnBoard.remove(this);
-            System.out.println("Number of ships remaining : " + computer.listOfShipsOnBoard.size());
+
             return true;
         }
         return false;

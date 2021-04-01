@@ -6,7 +6,7 @@ public class Player {
         if (boardObject.board[xCoordinate][yCoordinate].equals(boardObject.hit) || boardObject.board[xCoordinate][yCoordinate].equals(boardObject.miss)) {
             return "Shot Already , Choose other co-ordinates";
         }
-        if (boardObject.isHit(xCoordinate, yCoordinate)) {
+        if (boardObject.isShipHit(xCoordinate, yCoordinate)) {
             return "HIT";
         }
         return "MISS";

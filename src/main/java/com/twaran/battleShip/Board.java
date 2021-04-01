@@ -45,7 +45,7 @@ public class Board {
         System.out.println();
     }
 
-    public void printOpponentBoard() {
+    void printOpponentBoard() {
         System.out.printf("%5s", "");
         for (int cols = 0; cols < noOfCols; cols++) {
             System.out.print((char) (cols + ASCII_VALUE_OF_A) + " ");
@@ -87,12 +87,14 @@ public class Board {
         computer.listOfShipsOnBoard.add(ship);
     }
 
-    public boolean isHit(int xCoordinate, int yCoordinate) {
+    public boolean isShipHit(int xCoordinate, int yCoordinate) {
         if (board[xCoordinate][yCoordinate].equals(ship)) {
             board[xCoordinate][yCoordinate] = hit;
             for (int ship = 0; ship < computer.listOfShipsOnBoard.size(); ship++) {
                 Ship shipObj = computer.listOfShipsOnBoard.get(ship);
-                shipObj.isSink(this, computer);
+                if (shipObj.isSink(this, computer)) {
+                    System.out.println("Number of ships remaining : " + computer.listOfShipsOnBoard.size());
+                }
             }
             return true;
         }

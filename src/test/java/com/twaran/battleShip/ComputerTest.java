@@ -9,12 +9,13 @@ class ComputerTest {
     void shouldCreateFiveShipsAndPlaceThemOnBoardWhenCreateShipOnBoardIsCalled() {
         Computer computer = new Computer();
         Board board = new Board(10, 10);
+
         board.setBoard();
 
         computer.createShipsOnBoard(board);
 
-        int totalNoOfShipsShouldPlaced = 5;
+        int totalNoOfShipsToBePlaced = 5;
 
-        assertEquals(totalNoOfShipsShouldPlaced,computer.listOfShipsOnBoard.size());
+        assertEquals(totalNoOfShipsToBePlaced, computer.listOfShipsOnBoard.size());
     }
 }
